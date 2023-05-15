@@ -1,0 +1,6 @@
+POST http://localhost:8081/todos
+Content-Type: application/json
+
+{
+  "task": "hello world"
+}

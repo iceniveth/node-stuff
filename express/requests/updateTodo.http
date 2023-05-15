@@ -1,0 +1,6 @@
+PUT http://localhost:8081/todos/1
+Content-Type: application/json
+
+{
+  "checked": true
+}
