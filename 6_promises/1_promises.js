@@ -16,18 +16,20 @@ somePromise
     console.log(`failed: ${JSON.stringify(error)}`);
   });
 
-// (async function () {
+// async function main2() {
 //   try {
 //     const result = await somePromise;
 //     console.log(`success: ${JSON.stringify(result)}`);
 //   } catch (error) {
 //     console.log(`failed: ${JSON.stringify(error)} `);
 //   }
-// })();
+// }
+// main2();
 
-// (async function () {
+// async function main3() {
 //   const result = await somePromise.catch((error) => {
 //     console.log(`failed: ${JSON.stringify(error)}`);
 //   });
 //   console.log(`success: ${JSON.stringify(result)}`);
-// })();
+// }
+// main3();
