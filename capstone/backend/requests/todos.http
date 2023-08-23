@@ -1,0 +1,40 @@
+GET http://localhost:8081/todos
+
+###
+
+GET http://localhost:8081/todos/1231
+
+###
+
+GET http://localhost:8081/todos/11231
+
+###
+
+POST http://localhost:8081/todos
+Content-Type: application/json
+
+{
+  "task": "eat dinner",
+  "isCompleted": false
+}
+
+### 
+
+POST http://localhost:8081/todos
+Content-Type: application/json
+
+
+###
+
+PUT http://localhost:8081/todos/1
+Content-Type: application/json
+
+{
+  "task": "go take a shower",
+  "isCompleted": true
+}
+
+### 
+
+DELETE http://localhost:8081/todos/1
+
