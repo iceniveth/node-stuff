@@ -38,7 +38,12 @@ todosRouter.post("/", (req, res) => {
   const parsedResult = TodoSchema.safeParse(newTodo);
 
   if (!parsedResult.success) {
-    return res.status(400).send(parsedResult.error);
+    return res.status(400).send(
+      parsedResult.error.errors.map((err) => ({
+        field: err.path.join("."),
+        message: err.message,
+      }))
+    );
   }
 
   todos.push(newTodo);
