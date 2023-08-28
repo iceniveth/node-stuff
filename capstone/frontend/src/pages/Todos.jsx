@@ -36,11 +36,25 @@ export default function Todos() {
     taskRef.current.value = "";
   }
 
+  const onDeleteTodoClick = (todoId) => async () => {
+    await fetch(`/api/todos/${todoId}`, {
+      method: "DELETE",
+    });
+    setTodos((todos) => {
+      return todos.filter((todo) => todo.id !== todoId);
+    });
+  };
+
   return (
     <>
       <h2>Todos</h2>
       {todos.map((todo) => (
-        <li key={todo.id}>{todo.task}</li>
+        <li key={todo.id}>
+          {todo.task}{" "}
+          <button type="button" onClick={onDeleteTodoClick(todo.id)}>
+            x
+          </button>
+        </li>
       ))}
       <input type="text" ref={taskRef} name="task" />
       <button type="button" onClick={onAddTodoClick}>
