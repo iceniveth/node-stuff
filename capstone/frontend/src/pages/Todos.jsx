@@ -64,7 +64,7 @@ export default function Todos() {
     <>
       <h2>Todos</h2>
       {todos.map((todo) => (
-        <li key={todo.id}>
+        <li key={todo.id} style={{ padding: "2px 0" }}>
           <input
             type="checkbox"
             defaultChecked={todo.isCompleted}
@@ -76,6 +76,7 @@ export default function Todos() {
           </button>
         </li>
       ))}
+      <br />
       <input type="text" ref={taskRef} name="task" />
       <button type="button" onClick={onAddTodoClick}>
         Add Todo
