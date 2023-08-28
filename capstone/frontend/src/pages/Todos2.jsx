@@ -70,7 +70,7 @@ export default function Todos2() {
       <h2>Todos (using react router way)</h2>
       {todos.map((todo) => (
         <Form key={todo.id} method="DELETE">
-          <li>
+          <li style={{ padding: "2px 0" }}>
             <input
               type="checkbox"
               defaultChecked={todo.isCompleted}
@@ -84,6 +84,7 @@ export default function Todos2() {
           </li>
         </Form>
       ))}
+      <br />
       <Form method="POST">
         <input type="text" name="task" />
         <button type="submit">Add Todo</button>
