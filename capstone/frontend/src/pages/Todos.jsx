@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const loader = async () => {
   const response = await fetch("http://localhost:8081/api/todos");
@@ -17,12 +17,35 @@ export default function Todos() {
     init();
   }, []);
 
+  const taskRef = useRef();
+
+  async function onAddTodoClick() {
+    const response = await fetch("/api/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        task: taskRef.current?.value,
+        isCompleted: false,
+      }),
+    });
+    const data = await response.json();
+    setTodos((todos) => todos.concat(data));
+    if (taskRef.current == null) return;
+    taskRef.current.value = "";
+  }
+
   return (
     <>
       <h2>Todos</h2>
       {todos.map((todo) => (
         <li key={todo.id}>{todo.task}</li>
       ))}
+      <input type="text" ref={taskRef} name="task" />
+      <button type="button" onClick={onAddTodoClick}>
+        Add Todo
+      </button>
     </>
   );
 }
