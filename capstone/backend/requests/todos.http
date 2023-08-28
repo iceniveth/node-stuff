@@ -14,7 +14,7 @@ POST http://localhost:8081/api/todos
 Content-Type: application/json
 
 {
-  "task": "eat dinner",
+  "task": "Go Fishing",
   "isCompleted": false
 }
 
@@ -26,11 +26,11 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8081/api/todos/1
+PUT http://localhost:8081/api/todos/2
 Content-Type: application/json
 
 {
-  "task": "go take a shower",
+  "task": "222",
   "isCompleted": true
 }
 
