@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 import todosRouter from "./routes/todo.js";
 
 const app = express();
@@ -11,6 +12,11 @@ const server = app.listen(8081, function () {
   console.log(`App is listening at http://${host}:${post}`);
 });
 
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+  })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 
