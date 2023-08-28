@@ -45,11 +45,31 @@ export default function Todos() {
     });
   };
 
+  const onIsCompletedChange = (todoId) => async (event) => {
+    const isCompleted = event.target.checked;
+    const foundTodo = todos.find((todo) => todo.id === todoId);
+    await fetch(`/api/todos/${todoId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        task: foundTodo.task,
+        isCompleted,
+      }),
+    });
+  };
+
   return (
     <>
       <h2>Todos</h2>
       {todos.map((todo) => (
         <li key={todo.id}>
+          <input
+            type="checkbox"
+            defaultChecked={todo.isCompleted}
+            onChange={onIsCompletedChange(todo.id)}
+          />
           {todo.task}{" "}
           <button type="button" onClick={onDeleteTodoClick(todo.id)}>
             x
