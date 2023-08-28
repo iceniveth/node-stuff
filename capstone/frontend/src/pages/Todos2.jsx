@@ -1,4 +1,4 @@
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, redirect, useFetcher, useLoaderData } from "react-router-dom";
 
 export const loader = async () => {
   const response = await fetch("/api/todos");
@@ -8,6 +8,21 @@ export const loader = async () => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+
+  if (request.method === "PUT") {
+    const todoId = formData.get("id");
+    await fetch(`/api/todos/${todoId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        task: formData.get("task"),
+        isCompleted: JSON.parse(formData.get("isCompleted")),
+      }),
+    });
+    return redirect("/todos2");
+  }
 
   if (formData.get("intent") === "delete" || request.method === "DELETE") {
     const id = formData.get("id");
@@ -33,13 +48,34 @@ export const action = async ({ request }) => {
 export default function Todos2() {
   const data = useLoaderData();
   const todos = data.todos;
+  const updateTodoFetcher = useFetcher();
+
+  const onIsCompletedChange = (todoId) => async (event) => {
+    const isCompleted = event.target.checked;
+    const foundTodo = todos.find((todo) => todo.id === todoId);
+    updateTodoFetcher.submit(
+      {
+        id: todoId,
+        task: foundTodo.task,
+        isCompleted,
+      },
+      {
+        method: "PUT",
+      }
+    );
+  };
 
   return (
     <>
-      <h2>Todos2</h2>
+      <h2>Todos (using react router way)</h2>
       {todos.map((todo) => (
         <Form key={todo.id} method="DELETE">
           <li>
+            <input
+              type="checkbox"
+              defaultChecked={todo.isCompleted}
+              onChange={onIsCompletedChange(todo.id)}
+            />
             <input type="hidden" name="id" value={todo.id} />
             {todo.task}{" "}
             <button type="submit" name="intent" value="delete">
