@@ -14,7 +14,7 @@ const server = app.listen(8081, function () {
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/todos", todosRouter);
+app.use("/api/todos", todosRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello world");

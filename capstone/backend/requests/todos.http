@@ -1,16 +1,16 @@
-GET http://localhost:8081/todos
+GET http://localhost:8081/api/todos
 
 ###
 
-GET http://localhost:8081/todos/1231
+GET http://localhost:8081/api/todos/1
 
 ###
 
-GET http://localhost:8081/todos/11231
+GET http://localhost:8081/api/todos/11231
 
 ###
 
-POST http://localhost:8081/todos
+POST http://localhost:8081/api/todos
 Content-Type: application/json
 
 {
@@ -20,13 +20,13 @@ Content-Type: application/json
 
 ### 
 
-POST http://localhost:8081/todos
+POST http://localhost:8081/api/todos
 Content-Type: application/json
 
 
 ###
 
-PUT http://localhost:8081/todos/1
+PUT http://localhost:8081/api/todos/1
 Content-Type: application/json
 
 {
@@ -36,5 +36,5 @@ Content-Type: application/json
 
 ### 
 
-DELETE http://localhost:8081/todos/1
+DELETE http://localhost:8081/api/todos/1
 
