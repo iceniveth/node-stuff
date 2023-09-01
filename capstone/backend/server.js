@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import todosRouter from "./routes/todo.js";
 import authRouter from "./routes/auth.js";
+import authenticated from "./middlewares/autenticated.js";
 
 const app = express();
 
@@ -23,9 +24,11 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/auth", authRouter);
-app.use("/api/todos", todosRouter);
-
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
+
+app.use("/api/auth", authRouter);
+
+app.use(authenticated);
+app.use("/api/todos", todosRouter);
