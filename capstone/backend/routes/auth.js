@@ -109,6 +109,10 @@ authRouter.get("/verify", (req, res) => {
   }
 });
 
+authRouter.post("/sign-out", (req, res) => {
+  return res.status(204).clearCookie("token", { httpOnly: true }).send();
+});
+
 function generateToken(user, expiresIn = "7d") {
   const payload = {
     email: user.email,

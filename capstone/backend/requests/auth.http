@@ -16,6 +16,10 @@ Content-Type: application/json
   "password": "abcdefghh123"
 }
 
+### 
+
+POST http://localhost:8081/api/auth/sign-out
+
 ###
 
 GET http://localhost:8081/api/auth/verify
