@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { environment } from "../environment.js";
 import { sql } from "../db.js";
+import tokenValidator from "../services/tokenValidator.js";
 
 const { JWT_SECRET } = environment;
 
@@ -96,6 +97,16 @@ authRouter.post("/sign-in", async (req, res) => {
     createdAt: foundUser.createdAt,
     updatedAt: foundUser.updatedAt,
   });
+});
+
+authRouter.get("/verify", (req, res) => {
+  const { isValid, ...props } = tokenValidator(req.cookies.token);
+
+  if (isValid) {
+    return res.json(props);
+  } else {
+    return res.status(401).json({ error: props.error });
+  }
 });
 
 function generateToken(user, expiresIn = "7d") {
