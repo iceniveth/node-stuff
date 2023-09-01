@@ -59,6 +59,45 @@ authRouter.post("/sign-up", async (req, res) => {
   }
 });
 
+authRouter.post("/sign-in", async (req, res) => {
+  const result = await userSchema.safeParseAsync(req.body);
+
+  if (!result.success) {
+    return res.status(400).json(
+      result.error.errors.map((err) => ({
+        field: err.path.join("."),
+        message: err.message,
+      }))
+    );
+  }
+  const { email, password } = result.data;
+
+  let [foundUser] = await sql`SELECT * FROM users WHERE email = ${email}`;
+
+  if (!foundUser) {
+    return res.status(404).json({ error: "Email doesn't exists" });
+  }
+  foundUser = camelcaseKeys(foundUser);
+
+  const isPasswordMatch = await bcrypt.compare(
+    password,
+    foundUser.hashPassword
+  );
+
+  if (!isPasswordMatch) {
+    return res.status(401).json({ error: "Credentials Doesn't Match" });
+  }
+
+  const token = generateToken(foundUser);
+
+  return res.status(200).cookie("token", token, { httpOnly: true }).json({
+    id: foundUser.id,
+    email: foundUser.email,
+    createdAt: foundUser.createdAt,
+    updatedAt: foundUser.updatedAt,
+  });
+});
+
 function generateToken(user, expiresIn = "7d") {
   const payload = {
     email: user.email,
