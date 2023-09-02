@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 export const loader = async () => {
-  const response = await fetch("http://localhost:8081/api/todos");
+  const response = await fetch("http://localhost:8081/api/todos", {
+    credentials: "include",
+  });
   const todos = await response.json();
   return { todos };
 };

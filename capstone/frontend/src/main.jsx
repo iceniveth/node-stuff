@@ -6,11 +6,12 @@ import Todos2, {
   loader as todos2Loader,
   action as todos2Action,
 } from "./pages/Todos2";
+import Homepage from "./pages/Homepage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <Homepage />,
   },
   {
     path: "/todos",
