@@ -20,6 +20,9 @@ app.use(
 app.use(morgan("dev"));
 app.use(express.json());
 
+// https://expressjs.com/en/starter/static-files.html
+app.use("/static", express.static("static"));
+
 app.use("/api/todos", todosRouter);
 
 app.get("/", (req, res) => {
