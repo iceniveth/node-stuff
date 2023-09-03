@@ -6,6 +6,7 @@ import Todos2, {
   loader as todos2Loader,
   action as todos2Action,
 } from "./pages/Todos2";
+import Uploader from "./pages/Uploader";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     loader: todos2Loader,
     action: todos2Action,
     element: <Todos2 />,
+  },
+  {
+    path: "/uploader",
+    element: <Uploader />,
   },
 ]);
 
