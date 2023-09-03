@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const loader = async () => {
   const response = await fetch("http://localhost:8081/api/todos", {
@@ -9,6 +11,7 @@ export const loader = async () => {
 };
 
 export default function Todos() {
+  const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -62,9 +65,24 @@ export default function Todos() {
     });
   };
 
+  async function onSignOutClick() {
+    await axios({
+      method: "post",
+      url: "/api/auth/sign-out",
+    });
+    navigate("/");
+  }
+
   return (
     <>
-      <h2>Todos</h2>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <h2 style={{ flexGrow: 1 }}>Todos</h2>
+        <div>
+          <button type="button" onClick={onSignOutClick}>
+            Sign Out
+          </button>
+        </div>
+      </div>
       {todos.map((todo) => (
         <li key={todo.id} style={{ padding: "2px 0" }}>
           <input
