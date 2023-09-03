@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useIsAuthenticated from "../hooks/useIsAuthenticated";
 
 export const loader = async () => {
   const response = await fetch("http://localhost:8081/api/todos", {
@@ -11,6 +12,7 @@ export const loader = async () => {
 };
 
 export default function Todos() {
+  useIsAuthenticated();
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
 
