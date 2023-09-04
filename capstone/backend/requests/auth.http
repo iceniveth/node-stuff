@@ -1,0 +1,25 @@
+POST http://localhost:8081/api/auth/sign-up
+Content-Type: application/json
+
+{
+  "email": "johndoe3@gmail.com",
+  "password": "abcdefghh123"
+}
+
+###
+
+POST http://localhost:8081/api/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "johndoe3@gmail.com",
+  "password": "abcdefghh123"
+}
+
+### 
+
+POST http://localhost:8081/api/auth/sign-out
+
+###
+
+GET http://localhost:8081/api/auth/verify
