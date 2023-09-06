@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import todosRouter from "./routes/todo.js";
+import filesRouter from "./routes/files.js";
 
 const app = express();
 
@@ -19,6 +20,10 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(express.json());
+
+// https://expressjs.com/en/starter/static-files.html
+app.use("/static", express.static("static"));
+app.use("/api/files", filesRouter);
 
 app.use("/api/todos", todosRouter);
 
